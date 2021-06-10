@@ -4,6 +4,7 @@ from queue import Queue, PriorityQueue
 
 N = 6
 m = 6
+n_proc = random.randint(0,1000) #nproc
 
 class Process:
     def __init__(self, pid=None, t_prev=0, priorities=(1, N), lamb=1, Td=(1 / m) * 20):
@@ -11,7 +12,6 @@ class Process:
         self.pid = pid
         self.priority = random.randint(*priorities)
         self.Td = Td
-
         self.T_execution = 1 / m
         self.T_end = None
         self.wait = 0  
@@ -62,7 +62,8 @@ class MSS:
 
     def generate(self, eid):
         """ Generating Task """
-        return Process(pid=eid, lamb=self.lamb, t_prev=self.T_appr)
+        for j in range (n_proc) :
+            return Process(pid=eid, lamb=self.lamb, t_prev=self.T_appr)
 
     def generate_req(self, rid):
         """ Generating Request """
@@ -70,7 +71,7 @@ class MSS:
                         pid=int(str(rid) + str(i)), 
                         lamb=self.lamb, 
                         t_prev=self.T_appr
-                        ) for i in range(random.randint(1, 5))]
+                        ) for i in range(random.randint(1, n_proc))]
 
     def save_event_current(self, eve):
         self.event_current = eve
@@ -81,7 +82,6 @@ class MSS:
 
 def main():
     r1 = Process(0, lamb=5)
-    # r1.show_processes()
 
 if __name__ == '__main__':
     main()
